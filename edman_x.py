@@ -22,15 +22,17 @@ except ImportError:
 
 console = Console()
 
-SKULL_BANNER = """
-[bold green]
-       .---.
-      /     \\
-     | () () |
-      \\  _  /
-      -'---'-
-    EDMAN-X GOD-MODE MAX V20 (ULTIMATE)
-[/bold green]
+# شعار EDMAN الفخم الجديد حسب طلبك
+EDMAN_BANNER = """
+[bold cyan]
+███████╗██████╗ ███╗   ███╗ █████╗ ███╗   ██╗
+██╔════╝██╔══██╗████╗ ████║██╔══██╗████╗  ██║
+█████╗  ██║  ██║██╔████╔██║███████║██╔██╗ ██║
+██╔══╝  ██║  ██║██║ ╚═╝ ██║██╔══██║██║╚██╗██║
+███████╗██████╔╝██║     ██║██║  ██║██║ ╚██╗██║
+╚══════╝╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+          [ SUPREME EXPLOIT FRAMEWORK V25 ]
+[/bold cyan]
 """
 
 USER_AGENTS = [
@@ -41,33 +43,30 @@ USER_AGENTS = [
 
 def matrix_login():
     os.system('cls' if os.name == 'nt' else 'clear')
-    console.print("[green]Initializing EDMAN Supreme Neural Matrix V20...[/green]", justify="center")
+    console.print("[green]Initializing EDMAN Supreme Neural Matrix V25...[/green]", justify="center")
     time.sleep(0.5)
-    matrix_chars = "0101010101EDMAN_ULTIMATE_GODMODE01010101"
+    matrix_chars = "0101010101EDMAN_ULTIMATE_V25_01010101"
     for _ in range(3):
         line = "".join(random.choice(matrix_chars) for _ in range(50))
         console.print(f"[green]{line}[/green]")
         time.sleep(0.03)
     time.sleep(0.3)
     os.system('cls' if os.name == 'nt' else 'clear')
-    console.print(SKULL_BANNER)
+    console.print(EDMAN_BANNER)
     console.print(Panel.fit(
-        "[bold cyan]🔥 COMMANDER EDMAN - SUPREME CYBER WEAPON V20 LOADED 🔥[/bold cyan]\n[yellow]Modules Active: Web Scanners, Secret Hunter, Fuzzer, CVE Matcher & IP/Android Analyzer.[/yellow]",
+        "[bold cyan]🔥 COMMANDER EDMAN - SUPREME CYBER WEAPON V25 LOADED 🔥[/bold cyan]\n[yellow]All Modules Active: Clickable Vulnerability Links, Secret Hunter, Fuzzer & IP/Android Analyzer.[/yellow]",
         border_style="red"
     ))
     time.sleep(1.0)
 
-# 1. كاشف مفاتيح الـ API والتسريبات البرمجية (Secret & API Key Hunter)
+# 1. كاشف مفاتيح الـ API والتسريبات البرمجية
 def hunt_secrets_and_apis(target_url, html_content):
     console.print(f"\n[bold blue][*] Hunting for API Keys, Tokens & Sensitive Data Leaks...[/bold blue]")
-    
-    # تعبيرات نمطية (Regex) للبحث عن المفاتيح والتوكنات الحساسة
     patterns = {
         "Google API Key": r"AIza[0-9A-Za-z-_]{35}",
         "Telegram Bot Token": r"\d{9}:[0-9A-Za-z-_]{35}",
-        "Authorization / Bearer Token": r"bearer\s+[a-zA-Z0-9_\-\.]{20,}",
-        "Private IP Leak": r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b",
-        "Generic API/Secret Keyword": r"(api_key|secret_key|access_token|password|auth_token)\s*[:=]\s*['\"'][a-zA-Z0-9_\-]+['\"']"
+        "Authorization Token": r"bearer\s+[a-zA-Z0-9_\-\.]{20,}",
+        "Private IP Leak": r"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b"
     }
 
     table = Table(title="Secret & API Leak Detection Report", border_style="yellow")
@@ -84,21 +83,18 @@ def hunt_secrets_and_apis(target_url, html_content):
             table.add_row(name, "[green]Clean / Not Found[/green]")
 
     console.print(table)
-    if found_leaks > 0:
-        console.print(f"[bold red]⚠️ Alert: Found {found_leaks} potential sensitive data leaks in source code![/bold red]")
-    else:
-        console.print("[green][✔] No obvious API keys or hardcoded secrets detected in source.[/green]")
 
-# 2. محرك الفحص الخارق للمسارات المخفية (High-Speed Directory Fuzzer)
+# 2. محرك الفحص الخارق للمسارات المخفية (مع إرجاع روابط قابلة للضغط)
 def directory_fuzzer(base_domain):
-    console.print(f"\n[bold blue][*] Launching High-Speed Directory & Admin Panel Fuzzer...[/bold blue]")
+    console.print(f"\n[bold blue][*] Launching High-Speed Directory & Vulnerability Link Fuzzer...[/bold blue]")
     common_paths = [
         "admin", "administrator", "login", "dashboard", "cp", "panel", 
-        "backup", "db", "config.json", ".env", "api/v1", "server-status", "wp-login.php"
+        "backup", "db", "config.json", ".env", "api/v1", "robots.txt", ".git/HEAD"
     ]
 
-    table = Table(title=f"Directory Fuzzing Results: {base_domain}", border_style="cyan")
-    table.add_column("Path / Endpoint", style="yellow")
+    table = Table(title=f"Exposed Endpoints & Direct Links: {base_domain}", border_style="cyan")
+    table.add_column("Target Path / Vulnerability Link", style="yellow")
+    table.add_column("Direct Clickable URL", style="underline cyan")
     table.add_column("HTTP Status", style="bold")
 
     exposed_paths = 0
@@ -110,9 +106,9 @@ def directory_fuzzer(base_domain):
             res = requests.get(url, headers=headers, timeout=2)
             if res.status_code == 200:
                 exposed_paths += 1
-                table.add_row(url, "[bold red][OPEN] (Status 200)[/bold red]")
+                table.add_row(path, f"[link={url}]{url}[/link]", "[bold red][OPEN] (Status 200)[/bold red]")
             elif res.status_code == 403:
-                table.add_row(url, "[yellow][PROTECTED] (Status 403)[/yellow]")
+                table.add_row(path, f"[link={url}]{url}[/link]", "[yellow][PROTECTED] (Status 403)[/yellow]")
         except:
             pass
 
@@ -120,7 +116,7 @@ def directory_fuzzer(base_domain):
     if exposed_paths == 0:
         console.print("[green][✔] No vulnerable common directories exposed.[/green]")
 
-# 3. محرك فحص الأيبات والأجهزة والأندرويد (IP & Port Scanner)
+# 3. فحص الأيبات والأجهزة والأندرويد (IP & Port Scanner)
 def scan_ip_devices(target_host):
     console.print(f"\n[bold blue][*] Analyzing Target IP/Host Infrastructure: {target_host}[/bold blue]")
     try:
@@ -147,7 +143,6 @@ def scan_ip_devices(target_host):
     table.add_column("Service / Device Type", style="yellow")
     table.add_column("Status", style="bold")
 
-    open_ports_count = 0
     for port, desc in ports_to_scan.items():
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.settimeout(1.2)
@@ -155,7 +150,6 @@ def scan_ip_devices(target_host):
         s.close()
 
         if result == 0:
-            open_ports_count += 1
             status_str = "[bold red][OPEN][/bold red]"
             if port == 5555:
                 status_str = "[bold red][OPEN] ⚠️ (Potential Android ADB Exposed!)[/bold red]"
@@ -167,99 +161,63 @@ def scan_ip_devices(target_host):
 
     console.print(table)
 
-# 4. فحص المواقع الشامل مع كشف الثغرات وإصدارات السيرفر (CVE Matcher Mock)
+# 4. فحص المواقع الشامل مع الروابط التفاعلية المباشرة
 def comprehensive_web_scan(target_url):
-    console.print(f"\n[bold blue][*] Executing Full Web, CVE Recon & Vulnerability Assessment...[/bold blue]")
+    console.print(f"\n[bold blue][*] Executing Full Web, Recon & Vulnerability Assessment...[/bold blue]")
     
     parsed = urllib.parse.urlparse(target_url)
     domain = parsed.netloc or parsed.path
     base_domain = f"{parsed.scheme}://{domain}"
     headers = {"User-Agent": random.choice(USER_AGENTS)}
 
-    table = Table(title=f"Web Threat & CVE Report: {target_url}", border_style="magenta")
+    table = Table(title=f"Web Threat & Direct Links Report: {target_url}", border_style="magenta")
     table.add_column("Vulnerability / Check Vector", style="bold yellow")
-    table.add_column("Description", style="cyan")
+    table.add_column("Direct Exploit / Payload Link", style="underline cyan")
     table.add_column("Status", style="bold")
 
     report_results = {}
     html_content = ""
 
-    # Security Headers & Server Banner (CVE check simulation)
+    # Security Headers & Server Banner
     try:
         res = requests.get(target_url, headers=headers, timeout=5)
         html_content = res.text
         server_banner = res.headers.get("Server", "Unknown")
-        
-        table.add_row("Server Banner (CVE)", f"Detected Server: {server_banner}", "[bold cyan][INFO][/bold cyan]")
+        table.add_row("Server Banner", f"Server: {server_banner}", "[bold cyan][INFO][/bold cyan]")
 
         if 'Content-Security-Policy' not in res.headers or 'X-Frame-Options' not in res.headers:
-            table.add_row("Security Headers", "Missing vital protection headers", "[bold red][OPEN] (Vulnerable)[/bold red]")
-            report_results["security_headers"] = "OPEN"
+            table.add_row("Security Headers", f"[link={target_url}]{target_url}[/link]", "[bold red][OPEN] (Vulnerable Headers)[/bold red]")
         else:
             table.add_row("Security Headers", "Standard headers active", "[green][CLOSED][/green]")
-            report_results["security_headers"] = "CLOSED"
-    except Exception as e:
-        table.add_row("Security Headers", f"Connection error: {e}", "[yellow][ERROR][/yellow]")
+    except:
+        pass
 
-    # SQL Injection
+    # SQL Injection link check
     sql_status = "[green][CLOSED][/green]"
-    sql_val = "CLOSED"
     if parsed.query:
-        for p in ["'", "\""]:
-            try:
-                r = requests.get(target_url + p, headers=headers, timeout=4)
-                if any(err in r.text.lower() for err in ["sql syntax", "mysql_fetch", "syntax error", "sqlite3"]):
-                    sql_status = "[bold red][OPEN] (Exploitable SQLi)[/bold red]"
-                    sql_val = "OPEN"
-                    break
-            except:
-                pass
-    table.add_row("SQL Injection (SQLi)", "Database parameter manipulation", sql_status)
-    report_results["sqli"] = sql_val
+        sql_test_url = target_url + "'"
+        try:
+            r = requests.get(sql_test_url, headers=headers, timeout=4)
+            if any(err in r.text.lower() for err in ["sql syntax", "mysql_fetch", "syntax error"]):
+                sql_status = f"[bold red][OPEN] [link={sql_test_url}]Click to Test SQLi[/link][/bold red]"
+        except:
+            pass
+    table.add_row("SQL Injection (SQLi)", f"[link={target_url}]{target_url}[/link]", sql_status)
 
-    # Reflected XSS
+    # Reflected XSS link check
     xss_status = "[green][CLOSED][/green]"
-    xss_val = "CLOSED"
     try:
         payload = "<script>alert('EDMAN')</script>"
         test_u = f"{target_url}&test={urllib.parse.quote(payload)}" if "?" in target_url else f"{target_url}?test={urllib.parse.quote(payload)}"
         r = requests.get(test_u, headers=headers, timeout=4)
         if payload in r.text:
-            xss_status = "[bold red][OPEN] (Reflected XSS)[/bold red]"
-            xss_val = "OPEN"
+            xss_status = f"[bold red][OPEN] [link={test_u}]Click XSS Payload[/link][/bold red]"
     except:
         pass
-    table.add_row("Cross-Site Scripting (XSS)", "Unsanitized input reflection", xss_status)
-    report_results["xss"] = xss_val
-
-    # Open Redirect
-    redirect_status = "[green][CLOSED][/green]"
-    try:
-        redirect_test = f"{target_url}&url=https://evil-attacker.com" if "?" in target_url else f"{target_url}?url=https://evil-attacker.com"
-        r_red = requests.get(redirect_test, headers=headers, allow_redirects=False, timeout=4)
-        if r_red.status_code in [301, 302, 303] and "evil-attacker.com" in r_red.headers.get("Location", ""):
-            redirect_status = "[bold red][OPEN] (Open Redirect Vulnerable)[/bold red]"
-    except:
-        pass
-    table.add_row("Open Redirect", "Unvalidated external redirection", redirect_status)
-
-    # Sensitive Files (.git & robots.txt)
-    try:
-        r_file = requests.get(base_domain + "/robots.txt", headers=headers, timeout=3)
-        r_git = requests.get(base_domain + "/.git/HEAD", headers=headers, timeout=3)
-        
-        if r_git.status_code == 200:
-            table.add_row("Sensitive Files / Git", "Exposed .git repository found!", "[bold red][OPEN] (Critical Git Exposure)[/bold red]")
-        elif r_file.status_code == 200:
-            table.add_row("Sensitive Files / Robots", "Exposed robots.txt found", "[bold red][OPEN] (Exposed)[/bold red]")
-        else:
-            table.add_row("Sensitive Files / Backup", "Hidden or protected", "[green][CLOSED][/green]")
-    except:
-        table.add_row("Sensitive Files", "Check failed", "[yellow][ERROR][/yellow]")
+    table.add_row("Cross-Site Scripting (XSS)", f"[link={target_url}]{target_url}[/link]", xss_status)
 
     console.print(table)
 
-    # تشغيل كاشف المفاتيح والمسارات المخفية تلقائياً داخل الفحص الشامل
     if html_content:
         hunt_secrets_and_apis(target_url, html_content)
     
@@ -277,13 +235,13 @@ def comprehensive_web_scan(target_url):
 
 def show_help_menu():
     console.clear()
-    console.print(SKULL_BANNER)
-    table = Table(title="[bold red]EDMAN-X GOD-MODE MAX V20 MANUAL[/bold red]", border_style="cyan")
+    console.print(EDMAN_BANNER)
+    table = Table(title="[bold red]EDMAN-X GOD-MODE V25 MANUAL[/bold red]", border_style="cyan")
     table.add_column("Module", style="bold yellow")
     table.add_column("Description & Capabilities", style="green")
     
-    table.add_row("1. Web URL Scan", "Scans websites for XSS, SQLi, Open Redirect, Headers, Git exposure, Secret/API Leak Hunting, and Directory Fuzzing.")
-    table.add_row("2. IP / Device / Android Scan", "Scans IP/Hosts for core ports, routers (Telnet/SSH), and Android ADB debug port 5555.")
+    table.add_row("1. Web URL Scan", "Scans websites for XSS, SQLi, Headers, Secret Hunting, and outputs DIRECT CLICKABLE VULNERABILITY LINKS.")
+    table.add_row("2. IP / Android Scan", "Scans IP/Hosts for core ports and Android ADB debug port 5555.")
     table.add_row("JSON Export", "Dumps full scan data into 'edman_security_report.json'.")
     console.print(table)
     console.input("\n[bold cyan]Press Enter to return to main menu...[/bold cyan]")
@@ -292,9 +250,9 @@ def main():
     matrix_login()
     
     while True:
-        console.print(SKULL_BANNER)
-        console.print("[bold yellow]================= [ EDMAN-X GOD-MODE MAX V20 ] =================[/bold yellow]")
-        console.print("[bold cyan]1.[/bold cyan] Run Ultimate Web Scan (Vulnerabilities, Secrets Hunter, Fuzzer, Recon)")
+        console.print(EDMAN_BANNER)
+        console.print("[bold yellow]================= [ EDMAN-X GOD-MODE V25 ] =================[/bold yellow]")
+        console.print("[bold cyan]1.[/bold cyan] Run Ultimate Web Scan (Vulnerabilities, Clickable Links, Secrets, Fuzzer)")
         console.print("[bold cyan]2.[/bold cyan] Scan IP / Host / Android Device Ports ([OPEN] / [CLOSED])")
         console.print("[bold cyan]3.[/bold cyan] Help & Exploit Manual")
         console.print("[bold cyan]4.[/bold cyan] Exit / Terminate")
@@ -320,7 +278,7 @@ def main():
             os.system('cls' if os.name == 'nt' else 'clear')
             
         elif choice == "4":
-            console.print("[bold red][*] Shutting down EDMAN-X V20. Stay safe, Commander.[/bold red]")
+            console.print("[bold red][*] Shutting down EDMAN-X V25. Stay safe, Commander.[/bold red]")
             sys.exit(0)
         else:
             console.print("[bold red][!] Invalid option. Select from 1 to 4.[/bold red]")
