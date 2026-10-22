@@ -29,7 +29,7 @@ SKULL_BANNER = """
      | () () |
       \\  _  /
       -'---'-
-    EDMAN-X ULTIMATE EXPLOIT FRAMEWORK V31
+    EDMAN-X ULTIMATE EXPLOIT FRAMEWORK V32
 [/bold green]
 """
 
@@ -40,9 +40,9 @@ USER_AGENTS = [
 
 def matrix_login():
     os.system('cls' if os.name == 'nt' else 'clear')
-    console.print("[green]Initializing EDMAN Supreme Neural Matrix V31...[/green]", justify="center")
+    console.print("[green]Initializing EDMAN Supreme Neural Matrix V32...[/green]", justify="center")
     time.sleep(0.5)
-    matrix_chars = "0101010101EDMAN_ULTIMATE_V31_01010101"
+    matrix_chars = "0101010101EDMAN_ULTIMATE_V32_01010101"
     for _ in range(3):
         line = "".join(random.choice(matrix_chars) for _ in range(50))
         console.print(f"[green]{line}[/green]")
@@ -51,7 +51,7 @@ def matrix_login():
     os.system('cls' if os.name == 'nt' else 'clear')
     console.print(SKULL_BANNER)
     console.print(Panel.fit(
-        "[bold cyan]🔥 COMMANDER EDMAN - 15+ VULNERABILITY RECON ENGINE 🔥[/bold cyan]\n[yellow]Loaded: Error-Handled Web Fuzzer, API Leak Hunter, IP & Android Device Port Analyzer.[/yellow]",
+        "[bold cyan]🔥 COMMANDER EDMAN - 15+ VULNERABILITY RECON ENGINE 🔥[/bold cyan]\n[yellow]Loaded: Clean Web Fuzzer, API Leak Hunter, IP & Android Device Port Analyzer.[/yellow]",
         border_style="red"
     ))
     time.sleep(1.0)
@@ -133,7 +133,6 @@ def comprehensive_web_scan(target_url):
     html_content = ""
     res = None
     
-    # طلب آمن للموقع لمنع أي توقف فجائي
     try:
         res = requests.get(target_url, headers=headers, timeout=6)
         html_content = res.text
@@ -145,13 +144,11 @@ def comprehensive_web_scan(target_url):
         console.print(f"[bold red][-] Could not establish connection to target: {e}[/bold red]")
         return
 
-    # 2. Security Headers Check
     if res and ('Content-Security-Policy' not in res.headers or 'X-Frame-Options' not in res.headers):
         table.add_row("2. Security Headers", f"[link={target_url}]{target_url}[/link]", "[bold red][OPEN] (Missing Headers)[/bold red]")
     else:
         table.add_row("2. Security Headers", "Active & Secured", "[green][CLOSED][/green]")
 
-    # 3. SQL Injection Check
     sql_status = "[green][CLOSED][/green]"
     if parsed.query:
         sql_test = target_url + "'"
@@ -163,7 +160,6 @@ def comprehensive_web_scan(target_url):
             pass
     table.add_row("3. SQL Injection (SQLi)", f"[link={target_url}]{target_url}[/link]", sql_status)
 
-    # 4. Reflected XSS Check
     xss_status = "[green][CLOSED][/green]"
     try:
         payload = "<script>alert('EDMAN')</script>"
@@ -175,7 +171,6 @@ def comprehensive_web_scan(target_url):
         pass
     table.add_row("4. Cross-Site Scripting (XSS)", f"[link={target_url}]{target_url}[/link]", xss_status)
 
-    # 5. Open Redirect Check
     redirect_status = "[green][CLOSED][/green]"
     try:
         redir_test = f"{target_url}&url=https://evil-attacker.com" if "?" in target_url else f"{target_url}?url=https://evil-attacker.com"
@@ -188,7 +183,6 @@ def comprehensive_web_scan(target_url):
 
     console.print(table)
 
-    # فحص الملفات الحساسة والتسريبات (من 6 إلى 12)
     console.print(f"\n[bold blue][*] Scanning 10+ Sensitive Files, Backups & API Secrets...[/bold blue]")
     sensitive_files = {
         "6. Robots.txt Exposure": "/robots.txt",
@@ -218,7 +212,6 @@ def comprehensive_web_scan(target_url):
 
     console.print(file_table)
 
-    # 13, 14, 15. مكشف المفاتيح والتسريبات البرمجية في كود المصدر
     if html_content:
         console.print(f"\n[bold blue][*] Running API Key & Secret Hunter (Google, Telegram, Tokens)...[/bold blue]")
         patterns = {
@@ -239,7 +232,6 @@ def comprehensive_web_scan(target_url):
                 leak_table.add_row(name, "[green]Clean / Secure[/green]")
         console.print(leak_table)
 
-    # حفظ التقرير الشامل
     report_data = {
         "target_url": target_url,
         "target_ip": target_ip,
@@ -252,7 +244,7 @@ def comprehensive_web_scan(target_url):
 def show_help_menu():
     console.clear()
     console.print(SKULL_BANNER)
-    table = Table(title="[bold red]EDMAN-X ULTIMATE V31 MANUAL[/bold red]", border_style="cyan")
+    table = Table(title="[bold red]EDMAN-X ULTIMATE V32 MANUAL[/bold red]", border_style="cyan")
     table.add_column("Module", style="bold yellow")
     table.add_column("Description", style="green")
     
@@ -265,10 +257,9 @@ def show_help_menu():
 def main():
     matrix_login()
     
-    while; res = None # type: ignore
     while True:
         console.print(SKULL_BANNER)
-        console.print("[bold yellow]================= [ EDMAN-X ULTIMATE V31 ] =================[/bold yellow]")
+        console.print("[bold yellow]================= [ EDMAN-X ULTIMATE V32 ] =================[/bold yellow]")
         console.print("[bold cyan]1.[/bold cyan] Run 15+ Deep Web Vulnerability & Recon Scan")
         console.print("[bold cyan]2.[/bold cyan] Scan IP, Server & Mobile/Android Device Ports")
         console.print("[bold cyan]3.[/bold cyan] Help & Exploit Manual")
@@ -295,7 +286,7 @@ def main():
             os.system('cls' if os.name == 'nt' else 'clear')
             
         elif choice == "4":
-            console.print("[bold red][*] Shutting down EDMAN-X V31. Stay safe, Commander.[/bold red]")
+            console.print("[bold red][*] Shutting down EDMAN-X V32. Stay safe, Commander.[/bold red]")
             sys.exit(0)
         else:
             console.print("[bold red][!] Invalid option. Select from 1 to 4.[/bold red]")
