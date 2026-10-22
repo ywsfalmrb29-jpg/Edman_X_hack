@@ -29,7 +29,7 @@ SKULL_BANNER = """
      | () () |
       \\  _  /
       -'---'-
-    EDMAN-X ULTIMATE EXPLOIT FRAMEWORK V30
+    EDMAN-X ULTIMATE EXPLOIT FRAMEWORK V31
 [/bold green]
 """
 
@@ -40,9 +40,9 @@ USER_AGENTS = [
 
 def matrix_login():
     os.system('cls' if os.name == 'nt' else 'clear')
-    console.print("[green]Initializing EDMAN Supreme Neural Matrix V30...[/green]", justify="center")
+    console.print("[green]Initializing EDMAN Supreme Neural Matrix V31...[/green]", justify="center")
     time.sleep(0.5)
-    matrix_chars = "0101010101EDMAN_ULTIMATE_V30_01010101"
+    matrix_chars = "0101010101EDMAN_ULTIMATE_V31_01010101"
     for _ in range(3):
         line = "".join(random.choice(matrix_chars) for _ in range(50))
         console.print(f"[green]{line}[/green]")
@@ -51,7 +51,7 @@ def matrix_login():
     os.system('cls' if os.name == 'nt' else 'clear')
     console.print(SKULL_BANNER)
     console.print(Panel.fit(
-        "[bold cyan]🔥 COMMANDER EDMAN - 15+ VULNERABILITY RECON ENGINE 🔥[/bold cyan]\n[yellow]Loaded: Advanced Web Fuzzing, API Leak Hunter, IP & Android Device Port Analyzer.[/yellow]",
+        "[bold cyan]🔥 COMMANDER EDMAN - 15+ VULNERABILITY RECON ENGINE 🔥[/bold cyan]\n[yellow]Loaded: Error-Handled Web Fuzzer, API Leak Hunter, IP & Android Device Port Analyzer.[/yellow]",
         border_style="red"
     ))
     time.sleep(1.0)
@@ -66,7 +66,6 @@ def scan_ip_devices(target_host):
         console.print(f"[bold red][-] Failed to resolve host: {e}[/bold red]")
         return
 
-    # منافذ السيرفرات، الراوترات، والهواتف (مثل ADB لأندرويد)
     ports_to_scan = {
         21: "FTP (File Transfer)",
         22: "SSH (Secure Shell)",
@@ -111,7 +110,7 @@ def scan_ip_devices(target_host):
     else:
         console.print("[green][✔] All scanned ports are closed or firewalled.[/green]")
 
-# ==================== قسم فحص المواقع الشامل (15+ فحص وثغرة) ====================
+# ==================== قسم فحص المواقع الشامل (محمي بالكامل) ====================
 def comprehensive_web_scan(target_url):
     console.print(f"\n[bold blue][*] Executing Deep 15+ Vulnerability & Recon Engine on Web Target...[/bold blue]")
     
@@ -120,7 +119,6 @@ def comprehensive_web_scan(target_url):
     base_domain = f"{parsed.scheme}://{domain}"
     headers = {"User-Agent": random.choice(USER_AGENTS)}
 
-    # استخراج الـ IP للموقع فوراً
     try:
         target_ip = socket.gethostbyname(domain)
         console.print(f"[green][+] Target Domain IP Extracted: {target_ip}[/green]")
@@ -132,19 +130,23 @@ def comprehensive_web_scan(target_url):
     table.add_column("Direct Link / Payload", style="underline cyan")
     table.add_column("Status", style="bold")
 
-    # 1. Server Banner / WAF Check
+    html_content = ""
+    res = None
+    
+    # طلب آمن للموقع لمنع أي توقف فجائي
     try:
-        res = requests.get(target_url, headers=headers, timeout=5)
+        res = requests.get(target_url, headers=headers, timeout=6)
         html_content = res.text
         server_banner = res.headers.get("Server", "Hidden/Unknown")
         waf_header = res.headers.get("CF-Ray", res.headers.get("X-Powered-By", "None"))
         table.add_row("1. Server Banner & WAF", f"Server: {server_banner} | WAF: {waf_header}", "[bold cyan][INFO][/bold cyan]")
-    except:
-        html_content = ""
-        table.add_row("1. Server Banner", "Connection Failed", "[yellow][ERROR][/yellow]")
+    except Exception as e:
+        table.add_row("1. Server Banner", f"Connection Error: Target Unreachable", "[yellow][ERROR][/yellow]")
+        console.print(f"[bold red][-] Could not establish connection to target: {e}[/bold red]")
+        return
 
     # 2. Security Headers Check
-    if 'Content-Security-Policy' not in res.headers or 'X-Frame-Options' not in res.headers:
+    if res and ('Content-Security-Policy' not in res.headers or 'X-Frame-Options' not in res.headers):
         table.add_row("2. Security Headers", f"[link={target_url}]{target_url}[/link]", "[bold red][OPEN] (Missing Headers)[/bold red]")
     else:
         table.add_row("2. Security Headers", "Active & Secured", "[green][CLOSED][/green]")
@@ -250,11 +252,11 @@ def comprehensive_web_scan(target_url):
 def show_help_menu():
     console.clear()
     console.print(SKULL_BANNER)
-    table = Table(title="[bold red]EDMAN-X ULTIMATE V30 MANUAL[/bold red]", border_style="cyan")
+    table = Table(title="[bold red]EDMAN-X ULTIMATE V31 MANUAL[/bold red]", border_style="cyan")
     table.add_column("Module", style="bold yellow")
     table.add_column("Description", style="green")
     
-    table.add_row("1. Web URL Scan", "Executes 15+ checks: IP extraction, SQLi, XSS, Redirect, Headers, 7+ Sensitive Files (.env, .git, backups), and API Secret Hunter with direct links.")
+    table.add_row("1. Web URL Scan", "Executes 15+ checks with error-handling: IP extraction, SQLi, XSS, Redirect, Headers, 7+ Sensitive Files, and API Secret Hunter.")
     table.add_row("2. IP & Mobile/Device Scan", "Scans server and phone/Android ports (ADB 5555, Telnet 23, SMB 445) with threat analysis.")
     table.add_row("JSON Export", "Dumps assessment data into 'edman_security_report.json'.")
     console.print(table)
@@ -263,9 +265,10 @@ def show_help_menu():
 def main():
     matrix_login()
     
+    while; res = None # type: ignore
     while True:
         console.print(SKULL_BANNER)
-        console.print("[bold yellow]================= [ EDMAN-X ULTIMATE V30 ] =================[/bold yellow]")
+        console.print("[bold yellow]================= [ EDMAN-X ULTIMATE V31 ] =================[/bold yellow]")
         console.print("[bold cyan]1.[/bold cyan] Run 15+ Deep Web Vulnerability & Recon Scan")
         console.print("[bold cyan]2.[/bold cyan] Scan IP, Server & Mobile/Android Device Ports")
         console.print("[bold cyan]3.[/bold cyan] Help & Exploit Manual")
@@ -292,7 +295,7 @@ def main():
             os.system('cls' if os.name == 'nt' else 'clear')
             
         elif choice == "4":
-            console.print("[bold red][*] Shutting down EDMAN-X V30. Stay safe, Commander.[/bold red]")
+            console.print("[bold red][*] Shutting down EDMAN-X V31. Stay safe, Commander.[/bold red]")
             sys.exit(0)
         else:
             console.print("[bold red][!] Invalid option. Select from 1 to 4.[/bold red]")
